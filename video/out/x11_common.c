@@ -1161,7 +1161,12 @@ static void vo_x11_check_net_wm_state_change(struct vo *vo)
         }
 
         opts->window_minimized = is_minimized;
+        bool was_hidden = x11->hidden;
         x11->hidden = is_minimized;
+        // Notify the player only when actual X11 visibility changes. The
+        // force-render option must not affect this window state.
+        if (x11->hidden != was_hidden)
+            x11->pending_vo_events |= VO_EVENT_WIN_VISIBLE;
         m_config_cache_write_opt(x11->opts_cache, &opts->window_minimized);
         opts->window_maximized = is_maximized;
         m_config_cache_write_opt(x11->opts_cache, &opts->window_maximized);
@@ -2184,6 +2189,11 @@ int vo_x11_control(struct vo *vo, int *events, int request, void *arg)
     }
     case VOCTRL_GET_FOCUSED: {
         *(bool *)arg = x11->has_focus;
+        return VO_TRUE;
+    }
+    case VOCTRL_GET_VISIBLE: {
+        // Report the window state itself, independently of force-render.
+        *(bool *)arg = !x11->hidden;
         return VO_TRUE;
     }
     case VOCTRL_GET_DISPLAY_NAMES: {

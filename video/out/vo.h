@@ -48,10 +48,13 @@ enum {
     // For VOCTRL_GET_HIDPI_SCALE changes.
     VO_EVENT_DPI                        = 1 << 6,
     VO_EVENT_FOCUS                      = 1 << 7,
+    // The window's visibility changed.
+    VO_EVENT_WIN_VISIBLE                = 1 << 8,
 
     // Set of events the player core may be interested in.
     VO_EVENTS_USER = VO_EVENT_RESIZE | VO_EVENT_WIN_STATE | VO_EVENT_DPI |
-                     VO_EVENT_FOCUS | VO_EVENT_AMBIENT_LIGHTING_CHANGED,
+                     VO_EVENT_FOCUS | VO_EVENT_WIN_VISIBLE |
+                     VO_EVENT_AMBIENT_LIGHTING_CHANGED,
 };
 
 enum mp_voctrl {
@@ -98,6 +101,7 @@ enum mp_voctrl {
     VOCTRL_SET_UNFS_WINDOW_SIZE,        // int[2] (w/h)
 
     VOCTRL_GET_FOCUSED,                 // bool*
+    VOCTRL_GET_VISIBLE,                 // bool*
 
     // char *** (NULL terminated array compatible with CONF_TYPE_STRING_LIST)
     // names for displays the window is on
