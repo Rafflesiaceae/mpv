@@ -88,6 +88,7 @@ struct vo_x11_state {
 
     int wm_type;
     bool hidden; // _NET_WM_STATE_HIDDEN
+    bool window_visible; // cached mapped and current-workspace state
     bool window_hidden; // the window was mapped at least once
     bool pseudo_mapped; // not necessarily mapped, but known window size
     int fs;     // whether we assume the window is in fullscreen mode

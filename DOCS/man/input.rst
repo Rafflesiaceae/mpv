@@ -3113,9 +3113,9 @@ Property list
     Whether the window has focus. Might not be supported by all VOs.
 
 ``window-visible``
-    Whether the VO window is visible. On X11, this is based on the
-    ``_NET_WM_STATE_HIDDEN`` state and is independent of ``--force-render``.
-    Might not be supported by all VOs.
+    Whether the VO window is visible. On X11, this includes whether the
+    window is mapped, minimized, and on the current desktop, and is
+    independent of ``--force-render``. Might not be supported by all VOs.
 
 ``ambient-light``
     Ambient lighting condition in lux. Only observable on macOS (macOS and Linux only)
